@@ -89,7 +89,7 @@
 				<dl class="mt-10 space-y-10">
 					<fieldset>
 						<div class="bg-white rounded-md -space-y-px">
-							<label class="{ zone === 1 ? 'rounded-tl-md rounded-tr-md relative border p-4 flex cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'rounded-tl-md rounded-tr-md relative border p-4 flex cursor-pointer focus:outline-none border-gray-200'}">
+							<label class="{ zone === 1 ? 'rounded-tl-md rounded-tr-md relative border p-4 flex items-center cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'rounded-tl-md rounded-tr-md relative border p-4 flex items-center cursor-pointer focus:outline-none border-gray-200'}">
 								<input type="radio" name="zone" value={1} checked={zone===1} on:change={onChange}
 											 class="h-4 w-4 mt-0.5 cursor-pointer text-red-600 border-gray-300 focus:ring-red-500"
 											 aria-labelledby="privacy-setting-0-label" aria-describedby="privacy-setting-0-description">
@@ -107,7 +107,7 @@
 								</div>
 							</label>
 
-							<label class="{ zone === 2 ? 'relative border p-4 flex cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'relative border p-4 flex cursor-pointer focus:outline-none border-gray-200'}">
+							<label class="{ zone === 2 ? 'relative border p-4 flex items-center cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'relative border p-4 flex items-center cursor-pointer focus:outline-none border-gray-200'}">
 								<input type="radio" name="zone" value={2} checked={zone===2} on:change={onChange}
 											 class="h-4 w-4 mt-0.5 cursor-pointer text-red-600 border-gray-300 focus:ring-red-500"
 											 aria-labelledby="privacy-setting-0-label" aria-describedby="privacy-setting-0-description">
@@ -125,7 +125,7 @@
 								</div>
 							</label>
 
-							<label class="{ zone === 3 ? 'rounded-bl-md rounded-br-md relative border p-4 flex cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'rounded-bl-md rounded-br-md relative border p-4 flex cursor-pointer focus:outline-none border-gray-200'}">
+							<label class="{ zone === 3 ? 'rounded-bl-md rounded-br-md relative items-center border p-4 flex cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'rounded-bl-md rounded-br-md relative items-center border p-4 flex cursor-pointer focus:outline-none border-gray-200'}">
 								<input type="radio" name="zone" value={3} checked={zone===3} on:change={onChange}
 											 class="h-4 w-4 mt-0.5 cursor-pointer text-red-600 border-gray-300 focus:ring-red-500"
 											 aria-labelledby="privacy-setting-0-label" aria-describedby="privacy-setting-0-description">
