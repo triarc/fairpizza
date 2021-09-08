@@ -4,9 +4,18 @@
 
 <script lang="ts">
 	import Delivery from '$lib/delivery/Delivery.svelte';
-	import TakeAway from '../lib/take-away/TakeAway.svelte';
 	import AboutUs from '../lib/about-us/AboutUs.svelte';
 	import Contact from '../lib/Contact.svelte';
+	import { onMount } from 'svelte';
+
+	onMount(async () => {
+		const Plyr = await import('plyr')
+		const player = new Plyr.default('#demo', {
+			controls: ['play-large'],
+			autoplay: true,
+			loop: { active: true},
+		})
+	})
 </script>
 
 <svelte:head>
@@ -81,7 +90,7 @@
 		<div class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
 			<div class="relative mx-auto w-full rounded-lg lg:max-w-md flex flex-col">
 				<div class='bg-white rounded w-100 h-12 border-gray-700 border text-gray-600 flex items-center justify-center'><span class='text-red-500'>deinname</span>.fairpizza.ch</div>
-				<video class="object-cover z-10 flex-grow" style='border-bottom-left-radius: 32px; border-bottom-right-radius: 32px' autoplay loop>
+				<video id='demo' playsinline class="object-cover z-10 flex-grow" style='border-bottom-left-radius: 32px; border-bottom-right-radius: 32px' autoplay loop>
 					<source src='https://storage.googleapis.com/triarc-website/fairpizza.mp4' type='video/mp4' >
 				</video>
 			</div>
@@ -93,6 +102,7 @@
 <!--<TakeAway></TakeAway>-->
 <AboutUs></AboutUs>
 <Contact></Contact>
-<style>
 
+<style style lang="postcss">
+    @import 'plyr/dist/plyr.css';
 </style>
