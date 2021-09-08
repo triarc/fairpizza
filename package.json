@@ -1,0 +1,42 @@
+{
+  "name": "fairpizza-landing-page",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "svelte-kit dev",
+    "build": "svelte-kit build",
+    "preview": "svelte-kit preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+    "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
+    "format": "prettier --write --plugin-search-dir=. ."
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-vercel": "1.0.0-next.28",
+    "@tailwindcss/forms": "^0.3.3",
+    "@sveltejs/kit": "^1.0.0-next.162",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-svelte3": "^3.2.0",
+    "prettier": "~2.3.2",
+    "prettier-plugin-svelte": "^2.4.0",
+    "svelte": "^3.42.4",
+    "svelte-check": "^2.2.5",
+    "svelte-preprocess": "^4.8.0",
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.5",
+    "postcss": "^8.3.6",
+    "postcss-load-config": "^3.1.0",
+    "autoprefixer": "^10.3.1",
+    "cssnano": "^5.0.7"
+  },
+  "type": "module",
+  "dependencies": {
+    "@fontsource/fira-mono": "^4.2.2",
+    "tailwindcss": "^2.2.9",
+    "d3-geo": "^3.0.1",
+    "d3": "^7.0.1",
+    "layercake": "^5.0.0"
+  }
+}
