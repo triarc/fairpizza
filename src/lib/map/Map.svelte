@@ -10,7 +10,7 @@
 	export let highlight;
 
 	let svg;
-	const width = 500;
+	let width = 0;
 	const height = 500;
 
 	afterUpdate(() => {
@@ -21,7 +21,7 @@
 	})
 
 	function getFillColor(zip) {
-		if (zip === zipCode) { return '#d62c1a'; }
+		if (zip === zipCode) { return '#000'; }
 		if (highlight.indexOf(`${zip}`) >= 0) {
 			return '#e74c3c'
 		}
@@ -29,6 +29,7 @@
 	}
 
 	onMount(() => {
+		width = Math.min(500, window.innerWidth - 24)
 		svg = select(document.getElementById('zuerich-map'))
 		const projection = geoMercator()
 		const path = geoPath().projection(projection)
@@ -63,7 +64,7 @@
 
 <div class='text-3xl font-extrabold text-gray-500'>{zipCode}</div>
 
-<svg id='zuerich-map' width='500' height='500'></svg>
+<svg id='zuerich-map' width='500' height='500' style='max-width: calc(100vw - 24px); margin: 0 24px;'></svg>
 
 <style>
 </style>
