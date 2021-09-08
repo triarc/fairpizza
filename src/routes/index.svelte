@@ -80,8 +80,9 @@
 		</div>
 		<div class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
 			<div class="relative mx-auto w-full rounded-lg lg:max-w-md flex flex-col">
+				<div class='bg-white rounded w-100 h-12 border-gray-700 border text-gray-600 flex items-center justify-center'><span class='text-red-500'>deinname</span>.fairpizza.ch</div>
 				<video class="object-cover z-10 flex-grow" style='border-bottom-left-radius: 32px; border-bottom-right-radius: 32px' autoplay loop>
-					<source src='/static/capture2.mp4' type='video/mp4' >
+					<source src='https://storage.googleapis.com/triarc-website/fairpizza.mp4' type='video/mp4' >
 				</video>
 			</div>
 		</div>
