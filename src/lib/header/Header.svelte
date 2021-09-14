@@ -50,7 +50,7 @@
 					</div>
 				</div>
 				<div class="hidden md:block text-right">
-					<a href="#demo" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md  text-red-500 hover:text-red-700">
+					<a href="https://demo.fairpizza.ch" target='_blank' class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md  text-red-500 hover:text-red-700">
 						Live demo
 					</a>
 				</div>
@@ -91,7 +91,7 @@
 
 						<a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Kontakt</a>
 					</div>
-					<a href="#demo" class="block w-full px-5 py-3 text-center font-medium text-red-500 hover:text-red-700">
+					<a href="https://demo.fairpizza.ch" target='_blank' class="block w-full px-5 py-3 text-center font-medium text-red-500 hover:text-red-700">
 						Live demo
 					</a>
 				</div>

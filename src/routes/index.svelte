@@ -28,7 +28,7 @@
 			<h1>
 						<span class="mt-1 block text-4xl tracking-tight font-extrabold sm:text-5xl xl:text-6xl">
               <span class="block text-gray-900">Die Onlinelösung</span>
-              <span class="block text-red-500">für Pizza</span>
+              <span class="block text-red-500">für Pizza-Bestellung</span>
             </span>
 			</h1>
 			<p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">

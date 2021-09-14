@@ -1,5 +1,5 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
-<div class="relative bg-gray-900">
+<div class="relative bg-gray-900" id='aboutUs'>
 	<div class="h-80 w-full absolute bottom-0 xl:inset-0 xl:h-full">
 		<div class="h-full w-full xl:grid xl:grid-cols-2">
 			<div class="h-full xl:relative xl:col-start-2">
@@ -20,8 +20,8 @@
 			</p>
 			<div class="mt-12 grid grid-cols-1 gap-y-12 gap-x-6 sm:grid-cols-2">
 				<p>
-					<span class="block text-2xl font-bold text-white">Arbeitsbedingungen</span>
-					<span class="mt-1 block text-base text-gray-300">... schaffen, in welchem weder Partner noch Arbeitsnehmer leiden.</span>
+					<span class="block text-2xl font-bold text-white">Für Faire</span>
+					<span class="mt-1 block text-base text-gray-300">... Bedingungen sorgen, aller Beteiligten.</span>
 				</p>
 
 				<p>
