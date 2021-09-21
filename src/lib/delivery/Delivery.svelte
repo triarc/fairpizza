@@ -306,7 +306,7 @@
 									{(selectedPricing * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
 								</div>
 								<div class='flex-shrink-0 w-32 text-right'>
-									{(zoneDeliveryPrice * deliverySplit).toFixed(2)} <span class='text-sm'>CHF</span>
+									{((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
 								</div>
 							</label>
 							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 rounded-b">
