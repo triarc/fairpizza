@@ -69,7 +69,7 @@
 	}
 
 	function getPricings() {
-		return [32, 40, 50, 60, 70, 80, 90, 100].map(orderValue => {
+		return [32, 40, 50, 60, 70, 80, 90, 100, 150, 200].map(orderValue => {
 			const orderFee = (orderValue + (zoneDeliveryPrice * deliverySplit)) * 0.029 + 1.3 + (zoneDeliveryPrice * (1 - deliverySplit));
 			const revenue = orderValue - orderFee;
 			const eatFee = 0.3 * orderValue;
@@ -238,19 +238,20 @@
 					<p class='mt-3 text-lg text-gray-500'>
 						Der Bestellwert aus dem Warenkorb des Konsumentens.
 					</p>
-					<span class='relative z-0 inline-flex shadow-sm rounded-md mt-2'>
+					<div class='relative z-0 grid shadow-sm rounded-md mt-2' style='grid-template-columns: {`repeat(${pricings.length/2}, minmax(0, 1fr))`}'>
 						{#each pricings as pricing, i}
-						<button type='button' class:-ml-px={i !== 0} class:rounded-l-md={i === 0}
-										class:rounded-r-md={i +1 === pricings.length} class:ring-1={pricing.orderValue === selectedPricing}
+						<button type='button' class:-ml-px={i !== 0} class:rounded-tl-md={i === 0} class:rounded-tr-md={i === pricings.length/2-1}
+										class:rounded-bl-md={i === pricings.length/2} class:rounded-br-md={i+1 === pricings.length}
+										class:ring-1={pricing.orderValue === selectedPricing}
 										class:z-20={pricing.orderValue === selectedPricing} class:ring-red-500={pricing.orderValue === selectedPricing}
 										class:border-red-500={pricing.orderValue === selectedPricing} class:text-red-500={pricing.orderValue === selectedPricing}
 										class:text-gray-700={pricing.orderValue !== selectedPricing}
 										on:click={() => updatePricing(pricing)}
-										class='relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium outline-none hover:bg-gray-50 focus:outline-none'>
+										class='items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium outline-none hover:bg-gray-50 focus:outline-none'>
 							{pricing.orderValue} CHF
 						</button>
 						{/each}
-					</span>
+					</div>
 				</div>
 
 				<div>
