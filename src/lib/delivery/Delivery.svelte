@@ -23,15 +23,21 @@
 	}, {});
 
 	let zone = 1;
+	let zoneDeliveryPrice = getZonePrice()
 	let zipCode = 8005;
-	let zone1 = [];
-	let zone2 = [];
-	let zone3 = [];
-	let selectedZone = [];
+	let zone1ZipCodes = [];
+	let zone2ZipCodes = [];
+	let zone3ZipCodes = [];
+	let zoneZipCodes = [];
 	let deliverySplit = 0.5;
 	let pricings = [];
+	let selectedPricing = 40;
 
 	let splits = [0, 0.25, 0.5, 0.75, 1];
+
+	function updatePricing(pricing) {
+		selectedPricing = pricing.orderValue
+	}
 
 	function updateZipCode(evt) {
 		zipCode = parseInt(evt.detail);
@@ -40,15 +46,16 @@
 
 	function onChange(event) {
 		zone = parseInt(event.currentTarget.value);
+		zoneDeliveryPrice = getZonePrice()
 		update();
 	}
 
 	function update() {
 		pricings = getPricings();
-		zone1 = Object.keys(combinedPrices[zipCode]).filter(target => target === zipCode.toString() || combinedPrices[zipCode][target] < 18);
-		zone2 = Object.keys(combinedPrices[zipCode]).filter(target => combinedPrices[zipCode][target] < 26 && combinedPrices[zipCode][target] >= 18 && target !== zipCode.toString());
-		zone3 = Object.keys(combinedPrices[zipCode]).filter(target => combinedPrices[zipCode][target] >= 26);
-		selectedZone = zone === 1 ? zone1 : zone === 2 ? zone2 : zone3;
+		zone1ZipCodes = Object.keys(combinedPrices[zipCode]).filter(target => target === zipCode.toString() || combinedPrices[zipCode][target] < 18);
+		zone2ZipCodes = Object.keys(combinedPrices[zipCode]).filter(target => combinedPrices[zipCode][target] < 26 && combinedPrices[zipCode][target] >= 18 && target !== zipCode.toString());
+		zone3ZipCodes = Object.keys(combinedPrices[zipCode]).filter(target => combinedPrices[zipCode][target] >= 26);
+		zoneZipCodes = zone === 1 ? zone1ZipCodes : zone === 2 ? zone2ZipCodes : zone3ZipCodes;
 	}
 
 	function getZonePrice() {
@@ -62,14 +69,17 @@
 	}
 
 	function getPricings() {
-		const zonePrice = getZonePrice();
-		return [30, 40, 50, 60, 70, 80, 90, 100, 150, 200, 250, 300].map(orderValue => {
-			const orderFee = orderValue * 0.029 + 1.3 + (zonePrice * (1 - deliverySplit));
+		return [32, 40, 50, 60, 70, 80, 90, 100].map(orderValue => {
+			const orderFee = (orderValue + (zoneDeliveryPrice * deliverySplit)) * 0.029 + 1.3 + (zoneDeliveryPrice * (1 - deliverySplit));
 			const revenue = orderValue - orderFee;
+			const eatFee = 0.3 * orderValue;
 			return {
 				orderValue,
 				orderFee: orderFee.toFixed(2),
-				deliveryFee: (zonePrice * deliverySplit).toFixed(2),
+				deliveryFee: (zoneDeliveryPrice * deliverySplit).toFixed(2),
+				eatFee: eatFee.toFixed(2),
+				vsEatFee: (orderValue * 0.3 - orderFee).toFixed(2),
+				eatRevenue: (orderValue - eatFee).toFixed(2),
 				revenue: revenue.toFixed(2),
 				percentage: (100 * orderFee / orderValue).toFixed(2)
 			};
@@ -122,7 +132,7 @@
 									</span>
 									<span class="{zone === 1 ? 'block text-sm text-red-700' : 'block text-sm text-gray-500'}">
 										Beinhaltet:
-										{#each zone1 as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
+										{#each zone1ZipCodes as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
 									</span>
 								</div>
 								<div class='flex items-center justify-center px-3 py-2 rounded-md bg-black text-white'>
@@ -131,7 +141,7 @@
 								</div>
 							</label>
 
-							{#if zone2.length > 0}
+							{#if zone2ZipCodes.length > 0}
 							<label
 								class="{ zone === 2 ? 'relative border p-4 flex items-center cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'relative border p-4 flex items-center cursor-pointer focus:outline-none border-gray-200'}">
 								<input type='radio' name='zone' value={2} checked={zone===2} on:change={onChange}
@@ -144,7 +154,7 @@
 									</span>
 									<span class="{zone === 2 ? 'block text-sm text-red-700' : 'block text-sm text-gray-500'}">
 										Beinhaltet:
-										{#each zone2 as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
+										{#each zone2ZipCodes as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
 									</span>
 								</div>
 								<div class='flex items-center justify-center px-3 py-2 rounded-md bg-black text-white'>
@@ -154,7 +164,7 @@
 							</label>
 							{/if}
 
-							{#if zone3.length > 0}
+							{#if zone3ZipCodes.length > 0}
 							<label
 								class="{ zone === 3 ? 'rounded-bl-md rounded-br-md relative items-center border p-4 flex cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'rounded-bl-md rounded-br-md relative items-center border p-4 flex cursor-pointer focus:outline-none border-gray-200'}">
 								<input type='radio' name='zone' value={3} checked={zone===3} on:change={onChange}
@@ -167,7 +177,7 @@
 									</span>
 									<span class="{zone === 3 ? 'block text-sm text-red-700' : 'block text-sm text-gray-500'}">
 										Beinhaltet:
-										{#each zone3 as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
+										{#each zone3ZipCodes as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
 									</span>
 								</div>
 								<div class='flex items-center justify-center px-3 py-2 rounded-md bg-black text-white'>
@@ -179,101 +189,233 @@
 						</div>
 					</fieldset>
 				</dl>
+			</div>
 
-				<div class='mt-6 md:mt-12'>
-					<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>Aufteilung</h4>
+			<div class='mt-10 -mx-4 relative lg:mt-0 flex flex-col items-center' aria-hidden='true'>
+				<Map bind:zipCode={zipCode} bind:highlight={zoneZipCodes} on:zipCodeChange={zip => updateZipCode(zip)}></Map>
+			</div>
+		</div>
+
+		<div class='mt-6 md:mt-12'>
+			<h3 class='text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl'>Kostenrechner</h3>
+			<p class='mb-6 mt-3 text-lg text-gray-500'>
+				Mit unserem Kostenrechner kannst du die Kosten für deine Konsumenten und dein Restaurant transparent ausrechnen und vergleichen.
+			</p>
+
+			<div class='grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12'>
+				<div class=''>
+					<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>Aufteilung der Lieferkosten</h4>
 
 					<p class='mt-3 text-lg text-gray-500'>
 						Die Aufteilung steuert wieviel der Lieferkosten dem Kunden transparent als Lieferkosten zuzüglich dem
 						Bestellwert verrechnet wird.
 					</p>
+
+					<div class='flex justify-between'>
+						<span class='relative z-0 inline-flex shadow-sm rounded-md mt-2'>
+							{#each splits as split, i}
+							<button type='button' class:-ml-px={i !== 0} class:rounded-l-md={i === 0}
+											class:rounded-r-md={i +1 === splits.length} class:ring-1={split === deliverySplit}
+											class:z-20={split === deliverySplit} class:ring-red-500={split === deliverySplit}
+											class:border-red-500={split === deliverySplit} class:text-red-500={split === deliverySplit}
+											class:text-gray-700={split !== deliverySplit}
+											on:click={() => updateSplit(split)}
+											class='relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium outline-none hover:bg-gray-50 focus:outline-none'>
+								{split * 100} %
+							</button>
+							{/each}
+						</span>
+					</div>
+
+				</div>
+				<div>
+					<div class='flex justify-between'>
+						<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
+							Bestellwert
+						</h4>
+					</div>
+
+					<p class='mt-3 text-lg text-gray-500'>
+						Der Bestellwert aus dem Warenkorb des Konsumentens.
+					</p>
 					<span class='relative z-0 inline-flex shadow-sm rounded-md mt-2'>
-						{#each splits as split, i}
+						{#each pricings as pricing, i}
 						<button type='button' class:-ml-px={i !== 0} class:rounded-l-md={i === 0}
-										class:rounded-r-md={i +1 === splits.length} class:ring-1={split === deliverySplit}
-										class:z-20={split === deliverySplit} class:ring-red-500={split === deliverySplit}
-										class:border-red-500={split === deliverySplit} class:text-red-500={split === deliverySplit}
-										class:text-gray-700={split !== deliverySplit}
-										on:click={() => updateSplit(split)}
+										class:rounded-r-md={i +1 === pricings.length} class:ring-1={pricing.orderValue === selectedPricing}
+										class:z-20={pricing.orderValue === selectedPricing} class:ring-red-500={pricing.orderValue === selectedPricing}
+										class:border-red-500={pricing.orderValue === selectedPricing} class:text-red-500={pricing.orderValue === selectedPricing}
+										class:text-gray-700={pricing.orderValue !== selectedPricing}
+										on:click={() => updatePricing(pricing)}
 										class='relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium outline-none hover:bg-gray-50 focus:outline-none'>
-							{split * 100} %
+							{pricing.orderValue} CHF
 						</button>
 						{/each}
 					</span>
 				</div>
-			</div>
 
-			<div class='mt-10 -mx-4 relative lg:mt-0 flex flex-col items-center' aria-hidden='true'>
-				<Map bind:zipCode={zipCode} bind:highlight={selectedZone} on:zipCodeChange={zip => updateZipCode(zip)}></Map>
-			</div>
-		</div>
+				<div>
+					<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
+						Kosten für den Konsumenten
+					</h4>
+					<p class='mt-3 text-lg text-gray-500'>
+						Die Kosten, welche dem Konsumenten beim Bestellen aufgelistet und verrechnet werden.
+					</p>
 
-		<div class='mt-6 md:mt-12'>
-			<div class='flex justify-between'>
-				<h3 class='text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl'>
-					Preistabelle
-				</h3>
-			</div>
 
-			<div class='flex flex-col mt-6'>
-				<div class='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
-					<div class='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
-						<div class='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
-							<table class='min-w-full divide-y divide-gray-200'>
-								<thead class='bg-gray-50'>
-								<tr>
-									<th scope='col'
-											class='px-6 py-3 w-16 text-xs text-left font-medium text-gray-500 uppercase tracking-wider'>
-										Bestellwert
-									</th>
-									<th scope='col'
-											class='px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider'>
-										Lieferkosten
-									</th>
-									<th scope='col'
-											class='px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider'>
-										Gebühr
-									</th>
-									<th scope='col'
-											class='px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider'>
-										Umsatz
-									</th>
-									<th scope='col'
-											class='px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider'>
-										Prozent
-									</th>
-								</tr>
-								</thead>
-								<tbody>
-								{#each pricings as pricing, i}
-									<tr class="{i % 2 === 0 ? 'bg-white': 'bg-gray-100'}">
-										<td class='px-6 py-4 whitespace-nowrap text-sm text-right font-medium text-gray-900'>
-											{ pricing.orderValue } CHF
-										</td>
-										<td class='px-6 py-4 whitespace-nowrap text-sm text-right text-gray-500'>
-											{ pricing.deliveryFee } CHF
-										</td>
-										<td class='px-6 py-4 whitespace-nowrap text-sm text-right text-gray-500'>
-											{ pricing.orderFee } CHF
-										</td>
-										<td class='px-6 py-4 whitespace-nowrap text-sm text-right text-gray-500'>
-											{ pricing.revenue } CHF
-										</td>
-										<td class='px-6 py-4 whitespace-nowrap text-sm text-right text-gray-500'>
-											{ pricing.percentage } %
-										</td>
-									</tr>
-								{/each}
-								</tbody>
-							</table>
+					<fieldset>
+						<div class='bg-white rounded-md -space-y-px'>
+							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 bg-gray-100 rounded-t text-gray-900">
+								<div class='flex flex-col flex-grow block text-sm font-medium'>
+
+								</div>
+								<div class='flex-shrink-0 w-32 text-right text-sm'>
+									Eat.ch
+								</div>
+								<div class='flex-shrink-0 w-32 text-right text-sm'>
+									FairPizza
+								</div>
+							</label>
+							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+								<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
+									Bestellwert
+								</div>
+								<div class='flex-shrink-0 w-32 text-right'>
+									{selectedPricing.toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+								<div class='flex-shrink-0 w-32 text-right'>
+									{selectedPricing.toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+							</label>
+							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+								<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
+									Lieferkosten
+								</div>
+								<div class='flex-shrink-0 w-32 text-right'>
+									{(0).toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+								<div class='flex-shrink-0 w-32 text-right'>
+									{(zoneDeliveryPrice * deliverySplit).toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+							</label>
+							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+								<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
+									MWST.
+								</div>
+								<div class='flex-shrink-0 w-32 text-right'>
+									{(selectedPricing * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+								<div class='flex-shrink-0 w-32 text-right'>
+									{(zoneDeliveryPrice * deliverySplit).toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+							</label>
+							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 rounded-b">
+								<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700 font-bold'>
+									Total
+								</div>
+								<div class='flex-shrink-0 font-bold w-32 text-right'>
+									{(selectedPricing + selectedPricing * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+								<div class='flex-shrink-0 font-bold w-32 text-right'>
+									{(selectedPricing + selectedPricing * 0.024 + zoneDeliveryPrice * deliverySplit).toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+							</label>
 						</div>
-						<div class='mt-2 mx-3 text-sm text-gray-600'>* Lieferkosten werden dem Kunden zusätzlich zum Bestellwert
-							verrechnet, die Gebühr beinhaltet Zahlungsabwicklung- sowie Transportkosten welche vom Bestellwert
-							abgezogen werden
+					</fieldset>
+				</div>
+				<div>
+					<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
+						Umsatz des Restaurants
+					</h4>
+					<p class='mt-3 text-lg text-gray-500'>
+						Der Umsatz basierend aus Bestellwert abzüglich der Komissionsbeträge.
+					</p>
+
+
+
+					<fieldset>
+						<div class='bg-white rounded-md -space-y-px'>
+							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 bg-gray-100 rounded-t text-gray-900">
+								<div class='flex flex-col flex-grow block text-sm font-medium'>
+
+								</div>
+								<div class='flex-shrink-0 w-32 text-right text-sm'>
+									Eat.ch
+								</div>
+								<div class='flex-shrink-0 w-32 text-right text-sm'>
+									FairPizza
+								</div>
+							</label>
+							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+								<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
+									Bestellwert
+								</div>
+								<div class='flex-shrink-0 w-32 text-right'>
+									{selectedPricing.toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+								<div class='flex-shrink-0 w-32 text-right'>
+									{selectedPricing.toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+							</label>
+							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+								<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
+									Komission
+								</div>
+								<div class='flex-shrink-0 w-32 text-right'>
+									-{(0.3 * selectedPricing).toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+								<div class='flex-shrink-0 w-32 text-right'>
+									-{((zoneDeliveryPrice * (1 - deliverySplit)) + ((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.029 + 0.3) + 1).toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+							</label>
+							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+								<div class='flex flex-col flex-grow block font-medium text-gray-700 text-xs ml-3'>
+									Lieferkomission
+								</div>
+								<div class='flex-shrink-0 w-32 text-right'>
+									-
+								</div>
+								<div class='flex-shrink-0 w-32 text-right text-xs'>
+									-{(zoneDeliveryPrice * (1 - deliverySplit)).toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+							</label>
+							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+								<div class='flex flex-col flex-grow block font-medium text-gray-700 text-xs ml-3'>
+									Kreditkartenkomission
+								</div>
+								<div class='flex-shrink-0 w-32 text-right'>
+									-
+								</div>
+								<div class='flex-shrink-0 w-32 text-right text-xs'>
+									-{((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.029 + 0.3).toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+							</label>
+							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+								<div class='flex flex-col flex-grow block font-medium text-gray-700 text-xs ml-3'>
+									Bestellkomission
+								</div>
+								<div class='flex-shrink-0 w-32 text-right'>
+									-
+								</div>
+								<div class='flex-shrink-0 w-32 text-right text-xs'>
+									-{(1).toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+							</label>
+							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 rounded-b">
+								<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700 font-bold'>
+									Umsatz
+								</div>
+								<div class='flex-shrink-0 font-bold w-32 text-right'>
+									{(selectedPricing - selectedPricing*0.3).toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+								<div class='flex-shrink-0 font-bold w-32 text-right'>
+									{(selectedPricing - (zoneDeliveryPrice * (1 - deliverySplit)) - ((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.029 + 0.3) - 1).toFixed(2)} <span class='text-sm'>CHF</span>
+								</div>
+							</label>
 						</div>
-					</div>
+					</fieldset>
 				</div>
 			</div>
+
 		</div>
 	</div>
 </div>
