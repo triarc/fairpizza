@@ -369,8 +369,8 @@
 								</div>
 							</label>
 							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
-								<div class='flex flex-col flex-grow block font-medium text-gray-700 text-xs ml-3'>
-									Lieferkomission
+								<div class='flex flex-grow block font-medium text-gray-700 text-xs ml-3'>
+									Lieferkomission <span class='ml-2 text-gray-400'>({(1-deliverySplit)*100}% von {zoneDeliveryPrice.toFixed(2)} CHF)</span>
 								</div>
 								<div class='flex-shrink-0 w-32 text-right'>
 									-
@@ -380,8 +380,8 @@
 								</div>
 							</label>
 							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
-								<div class='flex flex-col flex-grow block font-medium text-gray-700 text-xs ml-3'>
-									Kreditkartenkomission
+								<div class='flex flex-grow block font-medium text-gray-700 text-xs ml-3'>
+									Kreditkartenkomission <span class='ml-2 text-gray-400'>(2.9% + 0.30 CHF)</span>
 								</div>
 								<div class='flex-shrink-0 w-32 text-right'>
 									-
@@ -391,8 +391,8 @@
 								</div>
 							</label>
 							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
-								<div class='flex flex-col flex-grow block font-medium text-gray-700 text-xs ml-3'>
-									Bestellkomission
+								<div class='flex flex-grow block font-medium text-gray-700 text-xs ml-3'>
+									Bestellkomission <span class='ml-2 text-gray-400'>(1.00 CHF pro Bestellung)</span>
 								</div>
 								<div class='flex-shrink-0 w-32 text-right'>
 									-
