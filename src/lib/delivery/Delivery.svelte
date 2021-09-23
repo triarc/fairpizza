@@ -23,6 +23,7 @@
 	}, {});
 
 	let zone = 1;
+	let ordersPerDay = 20;
 	let zoneDeliveryPrice = getZonePrice()
 	let zipCode = 8005;
 	let zone1ZipCodes = [];
@@ -86,6 +87,20 @@
 		});
 	}
 
+	function formatNumber(value) {
+		if (!value) {
+			return value
+		}
+		return value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1\'')
+	}
+
+	function formatNumberWithoutDecimal(value) {
+		if (!value) {
+			return value
+		}
+		return value.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1\'')
+	}
+
 	function updateSplit(split) {
 		deliverySplit = split;
 		update();
@@ -106,13 +121,23 @@
 			</p>
 		</div>
 
-		<div class='relative mt-12 lg:mt-24 lg:grid lg:grid-cols-2 lg:gap-8'>
-			<div class='relative'>
-				<h3 class='text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl'>
-					Lieferkonditionen
-				</h3>
-				<p class='mt-3 text-lg text-gray-500'>
+		<div class='grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12 mt-12'>
+			<div>
+				<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
+					Dein Standort
+				</h4>
+
+				<p class='mt-3 text-lg text-gray-500 mb-3'>
 					Die Lieferkonditionen hängem vom Standort des Restaurants sowie dem Lieferort des Kunden ab.
+					Wähle dein Standort auf der Karte und erfahre, welche Zonentarife für dich gelten.
+				</p>
+				<Map bind:zipCode={zipCode} bind:highlight={zoneZipCodes} on:zipCodeChange={zip => updateZipCode(zip)}></Map>
+			</div>
+			<div class='relative'>
+				<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
+					Lieferzonen
+				</h4>
+				<p class='mt-3 text-lg text-gray-500'>
 					Du hast die Möglichkeiten die Lieferzonen zu konfigurieren, um festzulegen wohin geliefert werden darf und zu
 					welchem Mindestbestellpreis.
 				</p>
@@ -142,76 +167,62 @@
 							</label>
 
 							{#if zone2ZipCodes.length > 0}
-							<label
-								class="{ zone === 2 ? 'relative border p-4 flex items-center cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'relative border p-4 flex items-center cursor-pointer focus:outline-none border-gray-200'}">
-								<input type='radio' name='zone' value={2} checked={zone===2} on:change={onChange}
-											 class='h-4 w-4 mt-0.5 cursor-pointer text-red-600 border-gray-300 focus:ring-red-500'
-											 aria-labelledby='privacy-setting-0-label' aria-describedby='privacy-setting-0-description'>
-								<div class='ml-3 flex flex-col flex-grow'>
+								<label
+									class="{ zone === 2 ? 'relative border p-4 flex items-center cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'relative border p-4 flex items-center cursor-pointer focus:outline-none border-gray-200'}">
+									<input type='radio' name='zone' value={2} checked={zone===2} on:change={onChange}
+												 class='h-4 w-4 mt-0.5 cursor-pointer text-red-600 border-gray-300 focus:ring-red-500'
+												 aria-labelledby='privacy-setting-0-label' aria-describedby='privacy-setting-0-description'>
+									<div class='ml-3 flex flex-col flex-grow'>
 									<span
 										class="{ zone === 2 ? 'block text-sm font-medium text-red-900' : 'block text-sm font-medium text-gray-900'}">
 										Zone 2 für {zipCode}
 									</span>
-									<span class="{zone === 2 ? 'block text-sm text-red-700' : 'block text-sm text-gray-500'}">
+										<span class="{zone === 2 ? 'block text-sm text-red-700' : 'block text-sm text-gray-500'}">
 										Beinhaltet:
-										{#each zone2ZipCodes as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
+											{#each zone2ZipCodes as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
 									</span>
-								</div>
-								<div class='flex items-center justify-center px-3 py-2 rounded-md bg-black text-white'>
-									<h4>18</h4>
-									<span class='text-xs ml-1'>CHF</span>
-								</div>
-							</label>
+									</div>
+									<div class='flex items-center justify-center px-3 py-2 rounded-md bg-black text-white'>
+										<h4>18</h4>
+										<span class='text-xs ml-1'>CHF</span>
+									</div>
+								</label>
 							{/if}
 
 							{#if zone3ZipCodes.length > 0}
-							<label
-								class="{ zone === 3 ? 'rounded-bl-md rounded-br-md relative items-center border p-4 flex cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'rounded-bl-md rounded-br-md relative items-center border p-4 flex cursor-pointer focus:outline-none border-gray-200'}">
-								<input type='radio' name='zone' value={3} checked={zone===3} on:change={onChange}
-											 class='h-4 w-4 mt-0.5 cursor-pointer text-red-600 border-gray-300 focus:ring-red-500'
-											 aria-labelledby='privacy-setting-0-label' aria-describedby='privacy-setting-0-description'>
-								<div class='ml-3 flex flex-col flex-grow'>
+								<label
+									class="{ zone === 3 ? 'rounded-bl-md rounded-br-md relative items-center border p-4 flex cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'rounded-bl-md rounded-br-md relative items-center border p-4 flex cursor-pointer focus:outline-none border-gray-200'}">
+									<input type='radio' name='zone' value={3} checked={zone===3} on:change={onChange}
+												 class='h-4 w-4 mt-0.5 cursor-pointer text-red-600 border-gray-300 focus:ring-red-500'
+												 aria-labelledby='privacy-setting-0-label' aria-describedby='privacy-setting-0-description'>
+									<div class='ml-3 flex flex-col flex-grow'>
 									<span
 										class="{ zone === 3 ? 'block text-sm font-medium text-red-900' : 'block text-sm font-medium text-gray-900'}">
 										Zone 3 für {zipCode}
 									</span>
-									<span class="{zone === 3 ? 'block text-sm text-red-700' : 'block text-sm text-gray-500'}">
+										<span class="{zone === 3 ? 'block text-sm text-red-700' : 'block text-sm text-gray-500'}">
 										Beinhaltet:
-										{#each zone3ZipCodes as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
+											{#each zone3ZipCodes as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
 									</span>
-								</div>
-								<div class='flex items-center justify-center px-3 py-2 rounded-md bg-black text-white'>
-									<h4>27</h4>
-									<span class='text-xs ml-1'>CHF</span>
-								</div>
-							</label>
+									</div>
+									<div class='flex items-center justify-center px-3 py-2 rounded-md bg-black text-white'>
+										<h4>27</h4>
+										<span class='text-xs ml-1'>CHF</span>
+									</div>
+								</label>
 							{/if}
 						</div>
 					</fieldset>
 				</dl>
-			</div>
 
-			<div class='mt-10 -mx-4 relative lg:mt-0 flex flex-col items-center' aria-hidden='true'>
-				<Map bind:zipCode={zipCode} bind:highlight={zoneZipCodes} on:zipCodeChange={zip => updateZipCode(zip)}></Map>
-			</div>
-		</div>
+				<h4 class='text-xl mt-12 font-extrabold text-gray-900 tracking-tight sm:text-1xl'>Aufteilung der Lieferkosten</h4>
 
-		<div class='mt-6 md:mt-12'>
-			<h3 class='text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl'>Kostenrechner</h3>
-			<p class='mb-6 mt-3 text-lg text-gray-500'>
-				Mit unserem Kostenrechner kannst du die Kosten für deine Konsumenten und dein Restaurant transparent ausrechnen und vergleichen.
-			</p>
+				<p class='mt-3 text-lg text-gray-500'>
+					Die Aufteilung steuert wieviel der Lieferkosten dem Kunden transparent als Lieferkosten zuzüglich dem
+					Bestellwert verrechnet wird.
+				</p>
 
-			<div class='grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12'>
-				<div class=''>
-					<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>Aufteilung der Lieferkosten</h4>
-
-					<p class='mt-3 text-lg text-gray-500'>
-						Die Aufteilung steuert wieviel der Lieferkosten dem Kunden transparent als Lieferkosten zuzüglich dem
-						Bestellwert verrechnet wird.
-					</p>
-
-					<div class='flex justify-between'>
+				<div class='flex justify-between'>
 						<span class='relative z-0 inline-flex shadow-sm rounded-md mt-2'>
 							{#each splits as split, i}
 							<button type='button' class:-ml-px={i !== 0} class:rounded-l-md={i === 0}
@@ -225,9 +236,22 @@
 							</button>
 							{/each}
 						</span>
-					</div>
-
 				</div>
+			</div>
+		</div>
+
+
+		<div class='mt-6 md:mt-12'>
+
+			<div class='w-1/2 text-center mx-auto my-24'>
+				<h3 class='text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl'>Kostenrechner</h3>
+				<p class='mb-6 mt-3 text-lg text-gray-500'>
+					Mit unserem Kostenrechner kannst du die Kosten für deine Konsumenten und dein Restaurant transparent ausrechnen und vergleichen.
+				</p>
+			</div>
+
+			<div class='grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12 mt-12'>
+
 				<div>
 					<div class='flex justify-between'>
 						<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
@@ -240,90 +264,93 @@
 					</p>
 					<div class='relative z-0 grid shadow-sm rounded-md mt-2' style='grid-template-columns: {`repeat(${pricings.length/2}, minmax(0, 1fr))`}'>
 						{#each pricings as pricing, i}
-						<button type='button' class:-ml-px={i !== 0} class:rounded-tl-md={i === 0} class:rounded-tr-md={i === pricings.length/2-1}
-										class:rounded-bl-md={i === pricings.length/2} class:rounded-br-md={i+1 === pricings.length}
-										class:ring-1={pricing.orderValue === selectedPricing}
-										class:z-20={pricing.orderValue === selectedPricing} class:ring-red-500={pricing.orderValue === selectedPricing}
-										class:border-red-500={pricing.orderValue === selectedPricing} class:text-red-500={pricing.orderValue === selectedPricing}
-										class:text-gray-700={pricing.orderValue !== selectedPricing}
-										on:click={() => updatePricing(pricing)}
-										class='items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium outline-none hover:bg-gray-50 focus:outline-none'>
-							{pricing.orderValue} CHF
-						</button>
+							<button type='button' class:-ml-px={i !== 0} class:rounded-tl-md={i === 0} class:rounded-tr-md={i === pricings.length/2-1}
+											class:rounded-bl-md={i === pricings.length/2} class:rounded-br-md={i+1 === pricings.length}
+											class:ring-1={pricing.orderValue === selectedPricing}
+											class:z-20={pricing.orderValue === selectedPricing} class:ring-red-500={pricing.orderValue === selectedPricing}
+											class:border-red-500={pricing.orderValue === selectedPricing} class:text-red-500={pricing.orderValue === selectedPricing}
+											class:text-gray-700={pricing.orderValue !== selectedPricing}
+											on:click={() => updatePricing(pricing)}
+											class='items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium outline-none hover:bg-gray-50 focus:outline-none'>
+								{pricing.orderValue} CHF
+							</button>
 						{/each}
+					</div>
+
+
+					<div class='mt-12'>
+						<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
+							Kosten für den Konsumenten
+						</h4>
+						<p class='mt-3 text-lg text-gray-500'>
+							Die Kosten, welche dem Konsumenten beim Bestellen aufgelistet und verrechnet werden.
+						</p>
+
+
+						<fieldset>
+							<div class='bg-white rounded-md -space-y-px'>
+								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 bg-gray-100 rounded-t text-gray-900">
+									<div class='flex flex-col flex-grow block text-sm font-medium'>
+
+									</div>
+									<div class='flex-shrink-0 w-32 text-right text-sm'>
+										Eat.ch
+									</div>
+									<div class='flex-shrink-0 w-32 text-right text-sm'>
+										FairPizza
+									</div>
+								</label>
+								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
+										Bestellwert
+									</div>
+									<div class='flex-shrink-0 w-32 text-right'>
+										{selectedPricing.toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+									<div class='flex-shrink-0 w-32 text-right'>
+										{selectedPricing.toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+								</label>
+								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
+										Lieferkosten
+									</div>
+									<div class='flex-shrink-0 w-32 text-right'>
+										{(0).toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+									<div class='flex-shrink-0 w-32 text-right'>
+										{(zoneDeliveryPrice * deliverySplit).toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+								</label>
+								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
+										MWST.
+									</div>
+									<div class='flex-shrink-0 w-32 text-right'>
+										{(selectedPricing * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+									<div class='flex-shrink-0 w-32 text-right'>
+										{((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+								</label>
+								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 rounded-b">
+									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700 font-bold'>
+										Total
+									</div>
+									<div class='flex-shrink-0 font-bold w-32 text-right'>
+										{(selectedPricing + selectedPricing * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+									<div class='flex-shrink-0 font-bold w-32 text-right'>
+										{(selectedPricing + selectedPricing * 0.024 + zoneDeliveryPrice * deliverySplit).toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+								</label>
+							</div>
+						</fieldset>
 					</div>
 				</div>
 
-				<div>
-					<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
-						Kosten für den Konsumenten
-					</h4>
-					<p class='mt-3 text-lg text-gray-500'>
-						Die Kosten, welche dem Konsumenten beim Bestellen aufgelistet und verrechnet werden.
-					</p>
 
-
-					<fieldset>
-						<div class='bg-white rounded-md -space-y-px'>
-							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 bg-gray-100 rounded-t text-gray-900">
-								<div class='flex flex-col flex-grow block text-sm font-medium'>
-
-								</div>
-								<div class='flex-shrink-0 w-32 text-right text-sm'>
-									Eat.ch
-								</div>
-								<div class='flex-shrink-0 w-32 text-right text-sm'>
-									FairPizza
-								</div>
-							</label>
-							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
-								<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
-									Bestellwert
-								</div>
-								<div class='flex-shrink-0 w-32 text-right'>
-									{selectedPricing.toFixed(2)} <span class='text-sm'>CHF</span>
-								</div>
-								<div class='flex-shrink-0 w-32 text-right'>
-									{selectedPricing.toFixed(2)} <span class='text-sm'>CHF</span>
-								</div>
-							</label>
-							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
-								<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
-									Lieferkosten
-								</div>
-								<div class='flex-shrink-0 w-32 text-right'>
-									{(0).toFixed(2)} <span class='text-sm'>CHF</span>
-								</div>
-								<div class='flex-shrink-0 w-32 text-right'>
-									{(zoneDeliveryPrice * deliverySplit).toFixed(2)} <span class='text-sm'>CHF</span>
-								</div>
-							</label>
-							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
-								<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
-									MWST.
-								</div>
-								<div class='flex-shrink-0 w-32 text-right'>
-									{(selectedPricing * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
-								</div>
-								<div class='flex-shrink-0 w-32 text-right'>
-									{((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
-								</div>
-							</label>
-							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 rounded-b">
-								<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700 font-bold'>
-									Total
-								</div>
-								<div class='flex-shrink-0 font-bold w-32 text-right'>
-									{(selectedPricing + selectedPricing * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
-								</div>
-								<div class='flex-shrink-0 font-bold w-32 text-right'>
-									{(selectedPricing + selectedPricing * 0.024 + zoneDeliveryPrice * deliverySplit).toFixed(2)} <span class='text-sm'>CHF</span>
-								</div>
-							</label>
-						</div>
-					</fieldset>
-				</div>
-				<div>
+				<div class='flex flex-col justify-end'>
 					<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
 						Umsatz des Restaurants
 					</h4>
@@ -414,9 +441,58 @@
 							</label>
 						</div>
 					</fieldset>
+
 				</div>
 			</div>
 
+			<div class="bg-gray-50 pt-12 sm:pt-16">
+				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div class="max-w-4xl mx-auto text-center">
+						<h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+							Steigere deinen Umsatz
+						</h2>
+						<p class="mt-3 text-xl text-gray-500 sm:mt-4">
+							Im Vergleich zu Eat.ch ist bei einer Anzahl von <br/>
+							<input type='number' bind:value={ordersPerDay} class='w-16 shadow-sm mx-2 focus:ring-red-500 focus:border-red-500 sm:text-sm border-gray-300 rounded-md'> Bestellungen pro Tag<br/> dein Umsatz um folgende Franken höher.
+						</p>
+					</div>
+				</div>
+				<div class="mt-10 pb-12 sm:pb-16">
+					<div class="relative">
+						<div class="absolute inset-0 h-1/2 bg-gray-50"></div>
+						<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+							<div class="max-w-4xl mx-auto">
+								<dl class="rounded-lg bg-white shadow-lg sm:grid sm:grid-cols-3">
+									<div class="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
+										<dt class="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
+											CHF / pro Bestellung
+										</dt>
+										<dd class="order-1 text-5xl font-extrabold text-green-600">
+											+ {formatNumber((selectedPricing - (zoneDeliveryPrice * (1 - deliverySplit)) - ((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.029 + 0.3) - 1 - (selectedPricing - selectedPricing*0.3)))}
+										</dd>
+									</div>
+									<div class="flex flex-col border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
+										<dt class="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
+											CHF / pro Monat
+										</dt>
+										<dd class="order-1 text-5xl font-extrabold text-green-600">
+											+ {formatNumberWithoutDecimal(ordersPerDay * 30 * (selectedPricing - (zoneDeliveryPrice * (1 - deliverySplit)) - ((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.029 + 0.3) - 1 - (selectedPricing - selectedPricing*0.3)))}
+										</dd>
+									</div>
+									<div class="flex flex-col border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">
+										<dt class="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
+											CHF / pro Jahr
+										</dt>
+										<dd class="order-1 text-5xl font-extrabold text-green-600">
+											+ {formatNumberWithoutDecimal(ordersPerDay * 30 * 12 * (selectedPricing - (zoneDeliveryPrice * (1 - deliverySplit)) - ((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.029 + 0.3) - 1 - (selectedPricing - selectedPricing*0.3)))}
+										</dd>
+									</div>
+								</dl>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

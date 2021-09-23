@@ -76,7 +76,7 @@
 			</div>
 			<div class="mt-10 sm:flex sm:justify-center lg:justify-start">
 				<div class="rounded-md shadow">
-					<a href="mailto:dh@triarc-labs.com" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+					<a href="mailto:development@triarc-labs.com" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 md:py-4 md:text-lg md:px-10">
 						Kontaktiere uns
 					</a>
 				</div>
