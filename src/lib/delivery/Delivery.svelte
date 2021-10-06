@@ -45,9 +45,9 @@
 
 	function update() {
 		pricings = getPricings();
-		zone1 = Object.keys(combinedPrices[zipCode]).filter(target => target === zipCode.toString() || combinedPrices[zipCode][target] < 18);
-		zone2 = Object.keys(combinedPrices[zipCode]).filter(target => combinedPrices[zipCode][target] < 26 && combinedPrices[zipCode][target] >= 18 && target !== zipCode.toString());
-		zone3 = Object.keys(combinedPrices[zipCode]).filter(target => combinedPrices[zipCode][target] >= 26);
+		zone1 = Object.keys(combinedPrices[zipCode]).filter(target => target === zipCode.toString() || combinedPrices[zipCode][target] <= 16);
+		zone2 = Object.keys(combinedPrices[zipCode]).filter(target => combinedPrices[zipCode][target] <= 26 && combinedPrices[zipCode][target] > 16 && target !== zipCode.toString());
+		zone3 = Object.keys(combinedPrices[zipCode]).filter(target => combinedPrices[zipCode][target] > 26);
 		selectedZone = zone === 1 ? zone1 : zone === 2 ? zone2 : zone3;
 	}
 
