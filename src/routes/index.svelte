@@ -7,15 +7,16 @@
 	import AboutUs from '../lib/about-us/AboutUs.svelte';
 	import Contact from '../lib/Contact.svelte';
 	import { onMount } from 'svelte';
+	import LiveDemo from '../lib/LiveDemo.svelte';
 
 	onMount(async () => {
-		const Plyr = await import('plyr')
+		const Plyr = await import('plyr');
 		const player = new Plyr.default('#demo', {
 			controls: ['play-large'],
 			autoplay: true,
-			loop: { active: true},
-		})
-	})
+			loop: { active: true }
+		});
+	});
 </script>
 
 <svelte:head>
@@ -33,7 +34,7 @@
 			</h1>
 			<p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
 				Fair Pizza ermöglicht die eigenständige Onlinepräsenz.
-				Erweitere deinen Kundenkreis und baue dir ein zweites Standbein auf mit Onlinebestellung oder Take-Away.
+				Erweitere deinen Kundenkreis und baue dir ein zweites Standbein auf, mit Onlinebestellung oder Take-Away.
 			</p>
 			<div class="pt-6 pb-8">
 				<dl class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6">
@@ -42,7 +43,7 @@
 							<p class="text-lg leading-6 font-medium text-gray-900">Nutze deine Kurierlösung</p>
 						</dt>
 						<dd class="mt-2 text-base text-gray-500">
-							Verwende FairPizza mit deinem vorhandenen Lieferpartner oder übernimm die Lieferung selbst.
+							Verwende Fair Pizza für die Bestellung und Bezahlung Online und nutze deine bereits vorhandenen Lieferpartner oder übernimm die Lieferung selbst.
 						</dd>
 					</div>
 
@@ -60,7 +61,7 @@
 							<p class="text-lg leading-6 font-medium text-gray-900">Onlinebezahlung</p>
 						</dt>
 						<dd class="mt-2 text-base text-gray-500">
-							Vereinfacht den Prozess und stellt sicher, dass im Vorraus bezahlt ist.
+							Vereinfache den Prozess und stellt sicher, dass im Vorraus bezahlt ist.
 						</dd>
 					</div>
 
@@ -81,7 +82,7 @@
 					</a>
 				</div>
 				<div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-					<a href="https://demo.fairpizza.ch" target='_blank' class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-red-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+					<a href="#demo" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-red-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
 						Live demo
 					</a>
 				</div>
@@ -100,6 +101,7 @@
 
 <Delivery></Delivery>
 <!--<TakeAway></TakeAway>-->
+<LiveDemo></LiveDemo>
 <AboutUs></AboutUs>
 <Contact></Contact>
 

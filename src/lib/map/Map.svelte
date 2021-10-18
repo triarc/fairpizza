@@ -7,7 +7,9 @@
 	const dispatch = createEventDispatcher();
 
 	export let zipCode;
-	export let highlight;
+	export let zone1;
+	export let zone2;
+	export let zone3;
 
 	let svg;
 	let zipCodeGroup;
@@ -25,8 +27,8 @@
 			}
 
 			select(this).attr('fill', getFillColor(currentZip))
-				.attr('stroke-width', currentZip === zipCode ? 3 : 1)
-				.attr('stroke', currentZip === zipCode ? '#333' : '#c0392b')
+				// .attr('stroke-width', currentZip === zipCode ? 3 : 1)
+				// .attr('stroke', currentZip === zipCode ? '#333' : '#c0392b')
 
 			if(currentZip===zipCode) {
 				select(this).raise()
@@ -42,8 +44,14 @@
 	})
 
 	function getFillColor(zip) {
-		if (highlight.indexOf(`${zip}`) >= 0) {
-			return '#e74c3c'
+		if (zone1.indexOf(`${zip}`) >= 0) {
+			return '#B91C1C'
+		}
+		if (zone2.indexOf(`${zip}`) >= 0) {
+			return '#F87171'
+		}
+		if (zone3.indexOf(`${zip}`) >= 0) {
+			return '#FEE2E2'
 		}
 		return '#fff'
 	}

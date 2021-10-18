@@ -22,50 +22,50 @@
 		return map;
 	}, {});
 
-	let zone = 1;
+	let selectedZone = 1;
 	let ordersPerDay = 20;
 	let zoneDeliveryPrice = getZonePrice()
 	let zipCode = 8005;
 	let zone1ZipCodes = [];
 	let zone2ZipCodes = [];
 	let zone3ZipCodes = [];
-	let zoneZipCodes = [];
 	let deliverySplit = 0.5;
 	let pricings = [];
 	let selectedPricing = 40;
+	let availableZipCodes = Object.keys(prices).map(k => parseInt(k))
 
 	let splits = [0, 0.25, 0.5, 0.75, 1];
+	let zones = [1,2,3]
 
 	function updatePricing(pricing) {
 		selectedPricing = pricing.orderValue
 	}
 
 	function updateZipCode(evt) {
-		zipCode = parseInt(evt.detail);
+		zipCode = evt;
 		update();
 	}
 
-	function onChange(event) {
-		zone = parseInt(event.currentTarget.value);
+	function selectZone(zone) {
+		selectedZone = zone;
 		zoneDeliveryPrice = getZonePrice()
 		update();
 	}
 
 	function update() {
 		pricings = getPricings();
-		zone1ZipCodes = Object.keys(combinedPrices[zipCode]).filter(target => target === zipCode.toString() || combinedPrices[zipCode][target] <= 16);
-		zone2ZipCodes = Object.keys(combinedPrices[zipCode]).filter(target => combinedPrices[zipCode][target] <= 26 && combinedPrices[zipCode][target] > 16 && target !== zipCode.toString());
-		zone3ZipCodes = Object.keys(combinedPrices[zipCode]).filter(target => combinedPrices[zipCode][target] > 26);
-		zoneZipCodes = zone === 1 ? zone1ZipCodes : zone === 2 ? zone2ZipCodes : zone3ZipCodes;
+		zone1ZipCodes = Object.keys(combinedPrices[zipCode]).filter(target => combinedPrices[zipCode][target] === 14);
+		zone2ZipCodes = Object.keys(combinedPrices[zipCode]).filter(target => combinedPrices[zipCode][target] === 18);
+		zone3ZipCodes = Object.keys(combinedPrices[zipCode]).filter(target => combinedPrices[zipCode][target] === 24);
 	}
 
 	function getZonePrice() {
-		if (zone === 1) {
+		if (selectedZone === 1) {
 			return 14;
-		} else if (zone === 2) {
+		} else if (selectedZone === 2) {
 			return 18;
-		} else if (zone === 3) {
-			return 27;
+		} else if (selectedZone === 3) {
+			return 24;
 		}
 	}
 
@@ -128,10 +128,28 @@
 				</h4>
 
 				<p class='mt-3 text-lg text-gray-500 mb-3'>
-					Die Lieferkonditionen hängem vom Standort des Restaurants sowie dem Lieferort des Kunden ab.
-					Wähle dein Standort auf der Karte und erfahre, welche Zonentarife für dich gelten.
+					Die Lieferkonditionen hängen vom Standort des Restaurants, sowie dem Lieferort des Kunden ab.
+					Wähle deinen Standort und erfahre, welche Zonentarife für dich gelten.
 				</p>
-				<Map bind:zipCode={zipCode} bind:highlight={zoneZipCodes} on:zipCodeChange={zip => updateZipCode(zip)}></Map>
+
+				<div class='flex'>
+
+				<span class='relative z-0 inline-flex shadow-sm rounded-md mt-2 mb-4'>
+					{#each availableZipCodes as availableZipCode, i}
+					<button type='button' class:-ml-px={i !== 0} class:rounded-l-md={i === 0}
+									class:rounded-r-md={i +1 === splits.length} class:ring-1={availableZipCode === zipCode}
+									class:z-20={availableZipCode === zipCode} class:ring-red-500={availableZipCode === zipCode}
+									class:border-red-500={availableZipCode === zipCode} class:text-red-500={availableZipCode === zipCode}
+									class:text-gray-700={availableZipCode !== zipCode}
+									on:click={() => updateZipCode(availableZipCode)}
+									class='relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium outline-none hover:bg-gray-50 focus:outline-none'>
+						{availableZipCode}
+					</button>
+					{/each}
+				</span>
+				</div>
+
+				<Map bind:zipCode={zipCode} bind:zone1={zone1ZipCodes} bind:zone2={zone2ZipCodes} bind:zone3={zone3ZipCodes}></Map>
 			</div>
 			<div class='relative'>
 				<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
@@ -146,18 +164,17 @@
 					<fieldset>
 						<div class='bg-white rounded-md -space-y-px'>
 							<label
-								class="{ zone === 1 ? 'rounded-tl-md rounded-tr-md relative border p-4 flex items-center cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'rounded-tl-md rounded-tr-md relative border p-4 flex items-center cursor-pointer focus:outline-none border-gray-200'}">
-								<input type='radio' name='zone' value={1} checked={zone===1} on:change={onChange}
-											 class='h-4 w-4 mt-0.5 cursor-pointer text-red-600 border-gray-300 focus:ring-red-500'
-											 aria-labelledby='privacy-setting-0-label' aria-describedby='privacy-setting-0-description'>
+								class="rounded-tl-md rounded-tr-md relative border p-4 flex items-center cursor-pointer focus:outline-none bg-red-700 border-red-700 z-10">
 								<div class='ml-3 flex flex-col flex-grow'>
 									<span
-										class="{ zone === 1 ? 'block text-sm font-medium text-red-900' : 'block text-sm font-medium text-gray-900'}">
+										class="block text-sm font-medium text-white">
 										Zone 1 für {zipCode}
 									</span>
-									<span class="{zone === 1 ? 'block text-sm text-red-700' : 'block text-sm text-gray-500'}">
-										Beinhaltet:
+									<span class="block text-sm text-white">
+										Beinhaltet Lieferungen in die Postleitzahlen<br/>
+										<div class='text-xs'>
 										{#each zone1ZipCodes as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
+										</div>
 									</span>
 								</div>
 								<div class='flex items-center justify-center px-3 py-2 rounded-md bg-black text-white'>
@@ -168,18 +185,18 @@
 
 							{#if zone2ZipCodes.length > 0}
 								<label
-									class="{ zone === 2 ? 'relative border p-4 flex items-center cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'relative border p-4 flex items-center cursor-pointer focus:outline-none border-gray-200'}">
-									<input type='radio' name='zone' value={2} checked={zone===2} on:change={onChange}
-												 class='h-4 w-4 mt-0.5 cursor-pointer text-red-600 border-gray-300 focus:ring-red-500'
-												 aria-labelledby='privacy-setting-0-label' aria-describedby='privacy-setting-0-description'>
+									class="relative border p-4 flex items-center cursor-pointer focus:outline-none bg-red-400 border-red-400 z-10">
 									<div class='ml-3 flex flex-col flex-grow'>
 									<span
-										class="{ zone === 2 ? 'block text-sm font-medium text-red-900' : 'block text-sm font-medium text-gray-900'}">
+										class="block text-sm font-medium text-black">
 										Zone 2 für {zipCode}
 									</span>
-										<span class="{zone === 2 ? 'block text-sm text-red-700' : 'block text-sm text-gray-500'}">
-										Beinhaltet:
-											{#each zone2ZipCodes as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
+										<span class="block text-sm text-black">
+										Beinhaltet Lieferungen in die Postleitzahlen<br/>
+											<div class='text-xs'>
+												{#each zone2ZipCodes as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
+											</div>
+
 									</span>
 									</div>
 									<div class='flex items-center justify-center px-3 py-2 rounded-md bg-black text-white'>
@@ -191,22 +208,21 @@
 
 							{#if zone3ZipCodes.length > 0}
 								<label
-									class="{ zone === 3 ? 'rounded-bl-md rounded-br-md relative items-center border p-4 flex cursor-pointer focus:outline-none bg-red-50 border-red-200 z-10' : 'rounded-bl-md rounded-br-md relative items-center border p-4 flex cursor-pointer focus:outline-none border-gray-200'}">
-									<input type='radio' name='zone' value={3} checked={zone===3} on:change={onChange}
-												 class='h-4 w-4 mt-0.5 cursor-pointer text-red-600 border-gray-300 focus:ring-red-500'
-												 aria-labelledby='privacy-setting-0-label' aria-describedby='privacy-setting-0-description'>
+									class="rounded-bl-md rounded-br-md relative items-center border p-4 flex cursor-pointer focus:outline-none bg-red-100 border-red-200 z-10">
 									<div class='ml-3 flex flex-col flex-grow'>
 									<span
-										class="{ zone === 3 ? 'block text-sm font-medium text-red-900' : 'block text-sm font-medium text-gray-900'}">
+										class="block text-sm font-medium text-red-900">
 										Zone 3 für {zipCode}
 									</span>
-										<span class="{zone === 3 ? 'block text-sm text-red-700' : 'block text-sm text-gray-500'}">
-										Beinhaltet:
+										<span class="block text-sm text-red-700">
+										Beinhaltet Lieferungen in die Postleitzahlen<br/>
+											<div class='text-xs'>
 											{#each zone3ZipCodes as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
+											</div>
 									</span>
 									</div>
 									<div class='flex items-center justify-center px-3 py-2 rounded-md bg-black text-white'>
-										<h4>27</h4>
+										<h4>24</h4>
 										<span class='text-xs ml-1'>CHF</span>
 									</div>
 								</label>
@@ -215,28 +231,7 @@
 					</fieldset>
 				</dl>
 
-				<h4 class='text-xl mt-12 font-extrabold text-gray-900 tracking-tight sm:text-1xl'>Aufteilung der Lieferkosten</h4>
 
-				<p class='mt-3 text-lg text-gray-500'>
-					Die Aufteilung steuert wieviel der Lieferkosten dem Kunden transparent als Lieferkosten zuzüglich dem
-					Bestellwert verrechnet wird.
-				</p>
-
-				<div class='flex justify-between'>
-						<span class='relative z-0 inline-flex shadow-sm rounded-md mt-2'>
-							{#each splits as split, i}
-							<button type='button' class:-ml-px={i !== 0} class:rounded-l-md={i === 0}
-											class:rounded-r-md={i +1 === splits.length} class:ring-1={split === deliverySplit}
-											class:z-20={split === deliverySplit} class:ring-red-500={split === deliverySplit}
-											class:border-red-500={split === deliverySplit} class:text-red-500={split === deliverySplit}
-											class:text-gray-700={split !== deliverySplit}
-											on:click={() => updateSplit(split)}
-											class='relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium outline-none hover:bg-gray-50 focus:outline-none'>
-								{split * 100} %
-							</button>
-							{/each}
-						</span>
-				</div>
 			</div>
 		</div>
 
@@ -253,7 +248,29 @@
 			<div class='grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12 mt-12'>
 
 				<div>
-					<div class='flex justify-between'>
+					<div class='flex justify-between mt-3'>
+						<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
+							Der Standort deines Kunden
+						</h4>
+					</div>
+					<p class='mt-3 text-lg text-gray-500'>
+						Die Zone, in welche die Bestellung geliefert werden soll.
+					</p>
+					<span class='relative z-0 inline-flex shadow-sm rounded-md mt-2 mb-4'>
+						{#each zones as zone, i}
+						<button type='button' class:-ml-px={i !== 0} class:rounded-l-md={i === 0}
+										class:rounded-r-md={i +1 === zones.length} class:ring-1={zone === selectedZone}
+										class:z-20={zone === selectedZone} class:ring-red-500={zone === selectedZone}
+										class:border-red-500={zone === selectedZone} class:text-red-500={zone === selectedZone}
+										class:text-gray-700={zone !== selectedZone}
+										on:click={() => selectZone(zone)}
+										class='relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium outline-none hover:bg-gray-50 focus:outline-none'>
+							Zone {zone}
+						</button>
+						{/each}
+					</span>
+
+					<div class='flex justify-between mt-3'>
 						<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
 							Bestellwert
 						</h4>
@@ -278,7 +295,39 @@
 					</div>
 
 
-					<div class='mt-12'>
+					<div>
+						<h4 class='text-xl mt-12 font-extrabold text-gray-900 tracking-tight sm:text-1xl'>Aufteilung der Lieferkosten</h4>
+
+						<p class='mt-3 text-lg text-gray-500'>
+							Die Aufteilung steuert, wieviel der Lieferkosten dem Kunden transparent als Lieferkosten zuzüglich dem
+							Bestellwert verrechnet wird.
+						</p>
+
+						<div class='flex justify-between'>
+						<span class='relative z-0 inline-flex shadow-sm rounded-md mt-2'>
+							{#each splits as split, i}
+							<button type='button' class:-ml-px={i !== 0} class:rounded-l-md={i === 0}
+											class:rounded-r-md={i +1 === splits.length} class:ring-1={split === deliverySplit}
+											class:z-20={split === deliverySplit} class:ring-red-500={split === deliverySplit}
+											class:border-red-500={split === deliverySplit} class:text-red-500={split === deliverySplit}
+											class:text-gray-700={split !== deliverySplit}
+											on:click={() => updateSplit(split)}
+											class='relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium outline-none hover:bg-gray-50 focus:outline-none'>
+								{split * 100} %
+							</button>
+							{/each}
+						</span>
+						</div>
+					</div>
+
+
+				</div>
+
+
+
+				<div class='flex flex-col justify-end'>
+
+					<div class=''>
 						<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
 							Kosten für den Konsumenten
 						</h4>
@@ -347,11 +396,8 @@
 							</div>
 						</fieldset>
 					</div>
-				</div>
 
-
-				<div class='flex flex-col justify-end'>
-					<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
+					<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl mt-6'>
 						Umsatz des Restaurants
 					</h4>
 					<p class='mt-3 text-lg text-gray-500'>
@@ -452,8 +498,8 @@
 							Steigere deinen Umsatz
 						</h2>
 						<p class="mt-3 text-xl text-gray-500 sm:mt-4">
-							Im Vergleich zu Eat.ch ist bei einer Anzahl von <br/>
-							<input type='number' bind:value={ordersPerDay} class='w-16 shadow-sm mx-2 focus:ring-red-500 focus:border-red-500 sm:text-sm border-gray-300 rounded-md'> Bestellungen pro Tag<br/> dein Umsatz um folgende Franken höher.
+							Im Vergleich zu Eat.ch ist bei einer Anzahl von
+							<input type='number' bind:value={ordersPerDay} class='w-16 shadow-sm mx-2 focus:ring-red-500 focus:border-red-500 sm:text-sm border-gray-300 rounded-md'> Bestellungen pro Tag,<br/> dein Umsatz um folgende Franken höher.
 						</p>
 					</div>
 				</div>
