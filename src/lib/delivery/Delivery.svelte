@@ -171,7 +171,7 @@
 										Zone 1 für {zipCode}
 									</span>
 									<span class="block text-sm text-white">
-										Beinhaltet Lieferungen in die Postleitzahlen<br/>
+										Beinhaltet Lieferungen in an die Postleitzahlen<br/>
 										<div class='text-xs'>
 										{#each zone1ZipCodes as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
 										</div>
@@ -192,7 +192,7 @@
 										Zone 2 für {zipCode}
 									</span>
 										<span class="block text-sm text-black">
-										Beinhaltet Lieferungen in die Postleitzahlen<br/>
+										Beinhaltet Lieferungen in an die Postleitzahlen<br/>
 											<div class='text-xs'>
 												{#each zone2ZipCodes as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
 											</div>
@@ -215,7 +215,7 @@
 										Zone 3 für {zipCode}
 									</span>
 										<span class="block text-sm text-red-700">
-										Beinhaltet Lieferungen in die Postleitzahlen<br/>
+										Beinhaltet Lieferungen in an die Postleitzahlen<br/>
 											<div class='text-xs'>
 											{#each zone3ZipCodes as zip, i}{#if i !== 0}<span>,</span>{/if} {zip}{/each}
 											</div>

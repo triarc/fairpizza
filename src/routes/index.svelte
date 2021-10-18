@@ -33,26 +33,27 @@
             </span>
 			</h1>
 			<p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-				Fair Pizza ermöglicht die eigenständige Onlinepräsenz.
-				Erweitere deinen Kundenkreis und baue dir ein zweites Standbein auf, mit Onlinebestellung oder Take-Away.
+				Fair Pizza ermöglicht dir die eigenständige Onlinepräsenz mit wenigen Klicks zum fairen Preis.
+				Erweitere deinen Kundenkreis und baue dir ein zweites Standbein auf, mit Onlinebestellungen oder Take-Away.
 			</p>
 			<div class="pt-6 pb-8">
 				<dl class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6">
 					<div class="relative">
 						<dt>
-							<p class="text-lg leading-6 font-medium text-gray-900">Nutze deine Kurierlösung</p>
+							<p class="text-lg leading-6 font-medium text-gray-900">Fairer Preis</p>
 						</dt>
 						<dd class="mt-2 text-base text-gray-500">
-							Verwende Fair Pizza für die Bestellung und Bezahlung Online und nutze deine bereits vorhandenen Lieferpartner oder übernimm die Lieferung selbst.
+							Fair Pizza verlangt pro Bestellung pauschal 1 CHF. Unabhängig vom Bestellwert.
+							Bei anderen Lieferfirmen sind dies in der Regel 30%.
 						</dd>
 					</div>
 
 					<div class="relative">
 						<dt>
-							<p class="text-lg leading-6 font-medium text-gray-900">Nutze unseren Velokurier</p>
+							<p class="text-lg leading-6 font-medium text-gray-900">Wähle deinen Kurier</p>
 						</dt>
 						<dd class="mt-2 text-base text-gray-500">
-							Nutze unseren Velokurier und konzentriere dich auf dein Restaurant und die Bestellungen.
+							Nutze deinen vorhannden Lieferpartner, übernimm die Lieferung selbst oder nutze unseren Velokurier und konzentriere dich auf dein Restaurant. Du hast die freie Wahl.
 						</dd>
 					</div>
 
