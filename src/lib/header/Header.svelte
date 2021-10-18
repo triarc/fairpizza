@@ -26,7 +26,7 @@
 				<div class="flex items-center flex-1">
 					<div class="flex items-center justify-between w-full md:w-auto">
 						<a href="https://fairpizza.ch">
-							<span class="sr-only">FairPizza</span>
+							<span class="sr-only">Fair Pizza</span>
 							<img src={logo} alt="fairpizza" class='h-8 w-auto sm:h-10' />
 						</a>
 						<div class="-mr-2 flex items-center md:hidden">

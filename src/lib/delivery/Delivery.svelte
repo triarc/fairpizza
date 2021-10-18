@@ -327,75 +327,6 @@
 
 				<div class='flex flex-col justify-end'>
 
-					<div class=''>
-						<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
-							Kosten für den Kunden
-						</h4>
-						<p class='mt-3 text-lg text-gray-500'>
-							Die Kosten, welche dem Konsumenten beim Bestellen aufgelistet und verrechnet werden.
-						</p>
-
-
-						<fieldset>
-							<div class='bg-white rounded-md -space-y-px'>
-								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 bg-gray-100 rounded-t text-gray-900">
-									<div class='flex flex-col flex-grow block text-sm font-medium'>
-
-									</div>
-									<div class='flex-shrink-0 w-32 text-right text-sm'>
-										Eat.ch
-									</div>
-									<div class='flex-shrink-0 w-32 text-right text-sm'>
-										FairPizza
-									</div>
-								</label>
-								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
-									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
-										Bestellwert
-									</div>
-									<div class='flex-shrink-0 w-32 text-right'>
-										{selectedPricing.toFixed(2)} <span class='text-sm'>CHF</span>
-									</div>
-									<div class='flex-shrink-0 w-32 text-right'>
-										{selectedPricing.toFixed(2)} <span class='text-sm'>CHF</span>
-									</div>
-								</label>
-								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
-									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
-										Lieferkosten
-									</div>
-									<div class='flex-shrink-0 w-32 text-right'>
-										{(0).toFixed(2)} <span class='text-sm'>CHF</span>
-									</div>
-									<div class='flex-shrink-0 w-32 text-right'>
-										{(zoneDeliveryPrice * deliverySplit).toFixed(2)} <span class='text-sm'>CHF</span>
-									</div>
-								</label>
-								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
-									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
-										MWST.
-									</div>
-									<div class='flex-shrink-0 w-32 text-right'>
-										{(selectedPricing * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
-									</div>
-									<div class='flex-shrink-0 w-32 text-right'>
-										{((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
-									</div>
-								</label>
-								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 rounded-b">
-									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700 font-bold'>
-										Total
-									</div>
-									<div class='flex-shrink-0 font-bold w-32 text-right'>
-										{(selectedPricing + selectedPricing * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
-									</div>
-									<div class='flex-shrink-0 font-bold w-32 text-right'>
-										{(selectedPricing + selectedPricing * 0.024 + zoneDeliveryPrice * deliverySplit).toFixed(2)} <span class='text-sm'>CHF</span>
-									</div>
-								</label>
-							</div>
-						</fieldset>
-					</div>
 
 					<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl mt-6'>
 						Umsatz des Restaurants
@@ -488,6 +419,76 @@
 						</div>
 					</fieldset>
 
+
+					<div class=''>
+						<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
+							Kosten für den Kunden
+						</h4>
+						<p class='mt-3 text-lg text-gray-500'>
+							Die Kosten, welche dem Konsumenten beim Bestellen aufgelistet und verrechnet werden.
+						</p>
+
+
+						<fieldset>
+							<div class='bg-white rounded-md -space-y-px'>
+								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 bg-gray-100 rounded-t text-gray-900">
+									<div class='flex flex-col flex-grow block text-sm font-medium'>
+
+									</div>
+									<div class='flex-shrink-0 w-32 text-right text-sm'>
+										Eat.ch
+									</div>
+									<div class='flex-shrink-0 w-32 text-right text-sm'>
+										Fair Pizza
+									</div>
+								</label>
+								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
+										Bestellwert
+									</div>
+									<div class='flex-shrink-0 w-32 text-right'>
+										{selectedPricing.toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+									<div class='flex-shrink-0 w-32 text-right'>
+										{selectedPricing.toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+								</label>
+								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
+										Lieferkosten
+									</div>
+									<div class='flex-shrink-0 w-32 text-right'>
+										{(0).toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+									<div class='flex-shrink-0 w-32 text-right'>
+										{(zoneDeliveryPrice * deliverySplit).toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+								</label>
+								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
+										MWST.
+									</div>
+									<div class='flex-shrink-0 w-32 text-right'>
+										{(selectedPricing * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+									<div class='flex-shrink-0 w-32 text-right'>
+										{((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+								</label>
+								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 rounded-b">
+									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700 font-bold'>
+										Total
+									</div>
+									<div class='flex-shrink-0 font-bold w-32 text-right'>
+										{(selectedPricing + selectedPricing * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+									<div class='flex-shrink-0 font-bold w-32 text-right'>
+										{(selectedPricing + selectedPricing * 0.024 + zoneDeliveryPrice * deliverySplit).toFixed(2)} <span class='text-sm'>CHF</span>
+									</div>
+								</label>
+							</div>
+						</fieldset>
+					</div>
 				</div>
 			</div>
 
