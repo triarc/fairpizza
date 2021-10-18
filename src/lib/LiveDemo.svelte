@@ -112,7 +112,7 @@
 						</defs>
 						<rect width="784" height="404" fill="url(#e80155a9-dfde-425a-b5ea-1f6fadd20131)" />
 					</svg>
-					<img class="relative mx-auto shadow-2xl" width="490" src="static/dashboard-demo.png" alt="dashboard">
+					<img class="relative mx-auto shadow-2xl" width="490" src="dashboard-demo.png" alt="dashboard">
 				</div>
 			</div>
 		</div>
