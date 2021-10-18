@@ -156,7 +156,7 @@
 					Lieferzonen
 				</h4>
 				<p class='mt-3 text-lg text-gray-500'>
-					Du hast die Möglichkeiten die Lieferzonen zu konfigurieren, um festzulegen wohin geliefert werden darf und zu
+					Du hast die Möglichkeiten die Lieferzonen zu konfigurieren, um festzulegen, wohin geliefert werden darf und zu
 					welchem Mindestbestellpreis.
 				</p>
 
@@ -238,10 +238,10 @@
 
 		<div class='mt-6 md:mt-12'>
 
-			<div class='w-1/2 text-center mx-auto my-24'>
+			<div class='w-1/2 md:w-2/3 text-center mx-auto my-24'>
 				<h3 class='text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl'>Kostenrechner</h3>
 				<p class='mb-6 mt-3 text-lg text-gray-500'>
-					Mit unserem Kostenrechner kannst du die Kosten für deine Konsumenten und dein Restaurant transparent ausrechnen und vergleichen.
+					Mit unserem Kostenrechner kannst du die Kosten für deine Kunden und dein Restaurant transparent ausrechnen und vergleichen.
 				</p>
 			</div>
 
@@ -277,7 +277,7 @@
 					</div>
 
 					<p class='mt-3 text-lg text-gray-500'>
-						Der Bestellwert aus dem Warenkorb des Konsumentens.
+						Der Bestellwert aus dem Warenkorb des Kunden.
 					</p>
 					<div class='relative z-0 grid shadow-sm rounded-md mt-2' style='grid-template-columns: {`repeat(${pricings.length/2}, minmax(0, 1fr))`}'>
 						{#each pricings as pricing, i}
@@ -299,7 +299,7 @@
 						<h4 class='text-xl mt-12 font-extrabold text-gray-900 tracking-tight sm:text-1xl'>Aufteilung der Lieferkosten</h4>
 
 						<p class='mt-3 text-lg text-gray-500'>
-							Die Aufteilung steuert, wieviel der Lieferkosten dem Kunden transparent als Lieferkosten zuzüglich dem
+							Die Aufteilung steuert, wieviel dem Kunden als Lieferkosten zuzüglich dem
 							Bestellwert verrechnet wird.
 						</p>
 
@@ -329,7 +329,7 @@
 
 					<div class=''>
 						<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
-							Kosten für den Konsumenten
+							Kosten für den Kunden
 						</h4>
 						<p class='mt-3 text-lg text-gray-500'>
 							Die Kosten, welche dem Konsumenten beim Bestellen aufgelistet und verrechnet werden.
@@ -401,7 +401,7 @@
 						Umsatz des Restaurants
 					</h4>
 					<p class='mt-3 text-lg text-gray-500'>
-						Der Umsatz basierend aus Bestellwert abzüglich der Komissionsbeträge.
+						Der Umsatz basierend auf Bestellwert abzüglich der Komissionsbeträge.
 					</p>
 
 
@@ -416,7 +416,7 @@
 									Eat.ch
 								</div>
 								<div class='flex-shrink-0 w-32 text-right text-sm'>
-									FairPizza
+									Fair Pizza
 								</div>
 							</label>
 							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
@@ -499,7 +499,7 @@
 						</h2>
 						<p class="mt-3 text-xl text-gray-500 sm:mt-4">
 							Im Vergleich zu Eat.ch ist bei einer Anzahl von
-							<input type='number' bind:value={ordersPerDay} class='w-16 shadow-sm mx-2 focus:ring-red-500 focus:border-red-500 sm:text-sm border-gray-300 rounded-md'> Bestellungen pro Tag,<br/> dein Umsatz um folgende Franken höher.
+							<input type='number' bind:value={ordersPerDay} class='w-16 shadow-sm mx-2 focus:ring-red-500 focus:border-red-500 sm:text-sm border-gray-300 rounded-md'> Bestellungen pro Tag,<br/> dein Umsatz um folgende Betrag höher.
 						</p>
 					</div>
 				</div>

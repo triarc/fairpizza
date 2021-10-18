@@ -20,13 +20,13 @@
 			</p>
 			<div class="mt-12 grid grid-cols-1 gap-y-12 gap-x-6 sm:grid-cols-2">
 				<p>
-					<span class="block text-2xl font-bold text-white">Für Faire</span>
-					<span class="mt-1 block text-base text-gray-300">... Bedingungen sorgen, aller Beteiligten.</span>
+					<span class="block text-2xl font-bold text-white">Für Fairness</span>
+					<span class="mt-1 block text-base text-gray-300">... sorgen bei allen Beteiligten.</span>
 				</p>
 
 				<p>
 					<span class="block text-2xl font-bold text-white">Eine Alternative</span>
-					<span class="mt-1 block text-base text-gray-300">...bieten, zu den grossen Platformen mit Monopolstellung.</span>
+					<span class="mt-1 block text-base text-gray-300">...bieten, zu den grossen Plattformen mit Monopolstellung.</span>
 				</p>
 
 				<p>

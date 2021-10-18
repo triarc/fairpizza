@@ -52,7 +52,7 @@
 							<p class="text-lg leading-6 font-medium text-gray-900">Nutze unseren Velokurier</p>
 						</dt>
 						<dd class="mt-2 text-base text-gray-500">
-							Nutze unseren Velokurier und konzentriere dich auf dein Restaurant und die Bestellung.
+							Nutze unseren Velokurier und konzentriere dich auf dein Restaurant und die Bestellungen.
 						</dd>
 					</div>
 
@@ -83,7 +83,7 @@
 				</div>
 				<div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
 					<a href="#demo" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-red-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
-						Live demo
+						Live Demo
 					</a>
 				</div>
 			</div>
@@ -91,7 +91,7 @@
 		<div class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
 			<div class="relative mx-auto w-full rounded-lg lg:max-w-md flex flex-col">
 				<div class='bg-white rounded w-100 h-12 border-gray-700 border text-gray-600 flex items-center justify-center'><span class='text-red-500'>deinname</span>.fairpizza.ch</div>
-				<video id='demo' playsinline class="object-cover z-10 flex-grow" style='border-bottom-left-radius: 32px; border-bottom-right-radius: 32px' autoplay loop>
+				<video playsinline class="object-cover z-10 flex-grow" style='border-bottom-left-radius: 32px; border-bottom-right-radius: 32px' autoplay loop>
 					<source src='https://storage.googleapis.com/triarc-website/fairpizza.mp4' type='video/mp4' >
 				</video>
 			</div>

@@ -1,8 +1,8 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
-<div class="py-16 bg-gray-100 overflow-hidden lg:py-24">
+<div class="py-16 bg-gray-100 overflow-hidden lg:py-24" id='demo'>
 	<div class="relative max-w-xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-7xl">
 		<div class="relative">
-			<h2 class="text-center text-3xl leading-8 font-extrabold tracking-tight text-gray-700 sm:text-4xl">
+			<h2 class="text-center text-3xl leading-8 mt-12 font-extrabold tracking-tight text-gray-700 sm:text-4xl">
 				Teste unser Produkt
 			</h2>
 			<p class="mt-4 max-w-3xl mx-auto text-center text-xl text-gray-600">
@@ -60,7 +60,7 @@
 				</dl>
 			</div>
 
-			<div class="mt-10 -mx-4 relative lg:mt-0" aria-hidden="true">
+			<div class="mt-10 -mx-4 relative lg:mt-0 flex flex-col items-center" aria-hidden="true">
 				<iframe src='https://demo.fairpizza.ch/order/type' width='400' height='800' style='max-width: calc(100vw - 24px)' class='mx-auto mx-3 relative rounded-xl shadow-2xl'></iframe>
 				<div class='text-gray-500 text-sm px-6 text-center py-2' style='width: 400px'>Navigiere dich hier direkt durch unsere Demoseite</div>
 			</div>
