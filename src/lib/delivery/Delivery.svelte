@@ -270,7 +270,7 @@
 						{/each}
 					</span>
 
-					<div class='flex justify-between mt-3'>
+					<div class='flex justify-between mt-16'>
 						<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
 							Bestellwert
 						</h4>
@@ -296,7 +296,7 @@
 
 
 					<div>
-						<h4 class='text-xl mt-12 font-extrabold text-gray-900 tracking-tight sm:text-1xl'>Aufteilung der Lieferkosten</h4>
+						<h4 class='text-xl mt-16 font-extrabold text-gray-900 tracking-tight sm:text-1xl'>Aufteilung der Lieferkosten</h4>
 
 						<p class='mt-3 text-lg text-gray-500'>
 							Die Aufteilung steuert, wieviel dem Kunden als Lieferkosten zuzüglich dem
@@ -420,7 +420,7 @@
 					</fieldset>
 
 
-					<div class=''>
+					<div class='mt-12'>
 						<h4 class='text-xl font-extrabold text-gray-900 tracking-tight sm:text-1xl'>
 							Kosten für den Kunden
 						</h4>

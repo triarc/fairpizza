@@ -53,7 +53,7 @@
 							<p class="text-lg leading-6 font-medium text-gray-900">Wähle deinen Kurier</p>
 						</dt>
 						<dd class="mt-2 text-base text-gray-500">
-							Nutze deinen vorhannden Lieferpartner, übernimm die Lieferung selbst oder nutze unseren Velokurier und konzentriere dich auf dein Restaurant. Du hast die freie Wahl.
+							Nutze deinen vorhandenen Lieferpartner, übernimm die Lieferung selbst oder nutze unseren Velokurier und konzentriere dich auf dein Restaurant. Du hast die freie Wahl.
 						</dd>
 					</div>
 
