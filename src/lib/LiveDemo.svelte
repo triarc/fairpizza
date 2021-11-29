@@ -18,7 +18,7 @@
 				<p class="mt-3 text-lg text-gray-500">
 					So könnte dein neue Bestellwebseite aussehen.
 					Verlinke die Fair Pizza Webseite von deiner bereits vorhandenen Webseite oder
-					gib deinen Kunden einem QR-Code, welcher diese direkt zur Bestellseite führt.
+					gib deinen Kunden einem QR-Code, welcher direkt zur Bestellseite führt.
 				</p>
 
 				<dl class="mt-10 space-y-10">
@@ -42,7 +42,7 @@
 							<p class="ml-16 text-lg leading-6 font-medium text-gray-900">Pizza Builder</p>
 						</dt>
 						<dd class="mt-2 ml-16 text-base text-gray-500">
-							Lasse der Kreativität deiner Kunden freien Lauf. Biete eine Vielzahl an Konfigurationsmöglichkeiten und erlaube jedem Kunden seine Traumpizza selbst auszuwählen.
+							Lasse der Kreativität deiner Kunden freien Lauf. Biete eine Vielzahl an Konfigurationsmöglichkeiten und erlaube jedem Kunden seine Traumpizza selbst zusammen zu stellen.
 						</dd>
 					</div>
 
@@ -54,7 +54,7 @@
 							<p class="ml-16 text-lg leading-6 font-medium text-gray-900">Bequeme Onlinezahlung</p>
 						</dt>
 						<dd class="mt-2 ml-16 text-base text-gray-500">
-							Lasse deine Kunde bequem Online bezahlen und erhalte das Geld direkt auf dein IBAN Konto.
+							Lasse deine Kunde bequem Online bezahlen und erhalte das Geld direkt auf deinem Bankkonto.
 						</dd>
 					</div>
 				</dl>
@@ -85,7 +85,7 @@
 								<p class="ml-16 text-lg leading-6 font-medium text-gray-900">Verwalte dein Restaurant</p>
 							</dt>
 							<dd class="mt-2 ml-16 text-base text-gray-500">
-								Lege deine Kontaktinformationen, Öffnungszeiten, Feiertage und Lieferradius fest. Mindestbestellwert kann pro PLZ definiert werden.
+								Lege deine Kontaktinformationen, Öffnungszeiten, Feiertage und Lieferradius fest, dein Mindestbestellwert kann pro PLZ definiert werden.
 							</dd>
 						</div>
 
