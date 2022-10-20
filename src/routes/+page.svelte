@@ -3,7 +3,7 @@
 </script>
 
 <script lang="ts">
-	import Delivery from '$lib/delivery/Delivery.svelte';
+	import Delivery from '../lib/delivery/Delivery.svelte';
 	import AboutUs from '../lib/about-us/AboutUs.svelte';
 	import Contact from '../lib/Contact.svelte';
 	import { onMount } from 'svelte';
@@ -11,7 +11,7 @@
 
 	onMount(async () => {
 		const Plyr = await import('plyr');
-		const player = new Plyr.default('#demo', {
+		const player = new Plyr('#demo', {
 			controls: ['play-large'],
 			autoplay: true,
 			loop: { active: true }

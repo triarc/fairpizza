@@ -1,6 +1,6 @@
 <script lang='ts'>
 	import Map from '../map/Map.svelte';
-	import prices from '../../../static/prices.json';
+	import prices from '../../prices.json';
 
 	const combinedPrices = Object.keys(prices).reduce((map, zip) => {
 		const sourceZip = zip.length === 4 ? parseInt(zip) : parseInt(zip.substr(0, 4));
@@ -163,7 +163,7 @@
 				<dl class='mt-10 space-y-10'>
 					<fieldset>
 						<div class='bg-white rounded-md -space-y-px'>
-							<label
+							<div
 								class="rounded-tl-md rounded-tr-md relative border p-4 flex items-center cursor-pointer focus:outline-none bg-red-700 border-red-700 z-10">
 								<div class='ml-3 flex flex-col flex-grow'>
 									<span
@@ -181,10 +181,10 @@
 									<h4>14</h4>
 									<span class='text-xs ml-1'>CHF</span>
 								</div>
-							</label>
+							</div>
 
 							{#if zone2ZipCodes.length > 0}
-								<label
+								<div
 									class="relative border p-4 flex items-center cursor-pointer focus:outline-none bg-red-400 border-red-400 z-10">
 									<div class='ml-3 flex flex-col flex-grow'>
 									<span
@@ -203,11 +203,11 @@
 										<h4>18</h4>
 										<span class='text-xs ml-1'>CHF</span>
 									</div>
-								</label>
+								</div>
 							{/if}
 
 							{#if zone3ZipCodes.length > 0}
-								<label
+								<div
 									class="rounded-bl-md rounded-br-md relative items-center border p-4 flex cursor-pointer focus:outline-none bg-red-100 border-red-200 z-10">
 									<div class='ml-3 flex flex-col flex-grow'>
 									<span
@@ -225,7 +225,7 @@
 										<h4>24</h4>
 										<span class='text-xs ml-1'>CHF</span>
 									</div>
-								</label>
+								</div>
 							{/if}
 						</div>
 					</fieldset>
@@ -339,7 +339,7 @@
 
 					<fieldset>
 						<div class='bg-white rounded-md -space-y-px'>
-							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 bg-gray-100 rounded-t text-gray-900">
+							<div class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 bg-gray-100 rounded-t text-gray-900">
 								<div class='flex flex-col flex-grow block text-sm font-medium'>
 
 								</div>
@@ -349,8 +349,8 @@
 								<div class='flex-shrink-0 w-32 text-right text-sm'>
 									Fair Pizza
 								</div>
-							</label>
-							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+							</div>
+							<div class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
 								<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
 									Bestellwert
 								</div>
@@ -360,8 +360,8 @@
 								<div class='flex-shrink-0 w-32 text-right'>
 									{selectedPricing.toFixed(2)} <span class='text-sm'>CHF</span>
 								</div>
-							</label>
-							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+							</div>
+							<div class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
 								<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
 									Komission
 								</div>
@@ -371,8 +371,8 @@
 								<div class='flex-shrink-0 w-32 text-right'>
 									-{((zoneDeliveryPrice * (1 - deliverySplit)) + ((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.029 + 0.3) + 1).toFixed(2)} <span class='text-sm'>CHF</span>
 								</div>
-							</label>
-							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+							</div>
+							<div class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
 								<div class='flex flex-grow block font-medium text-gray-700 text-xs ml-3'>
 									Lieferkomission <span class='ml-2 text-gray-400'>({(1-deliverySplit)*100}% von {zoneDeliveryPrice.toFixed(2)} CHF)</span>
 								</div>
@@ -382,8 +382,8 @@
 								<div class='flex-shrink-0 w-32 text-right text-xs'>
 									-{(zoneDeliveryPrice * (1 - deliverySplit)).toFixed(2)} <span class='text-sm'>CHF</span>
 								</div>
-							</label>
-							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+							</div>
+							<div class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
 								<div class='flex flex-grow block font-medium text-gray-700 text-xs ml-3'>
 									Kreditkartenkomission <span class='ml-2 text-gray-400'>(2.9% + 0.30 CHF)</span>
 								</div>
@@ -393,8 +393,8 @@
 								<div class='flex-shrink-0 w-32 text-right text-xs'>
 									-{((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.029 + 0.3).toFixed(2)} <span class='text-sm'>CHF</span>
 								</div>
-							</label>
-							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+							</div>
+							<div class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
 								<div class='flex flex-grow block font-medium text-gray-700 text-xs ml-3'>
 									Bestellkomission <span class='ml-2 text-gray-400'>(1.00 CHF pro Bestellung)</span>
 								</div>
@@ -404,8 +404,8 @@
 								<div class='flex-shrink-0 w-32 text-right text-xs'>
 									-{(1).toFixed(2)} <span class='text-sm'>CHF</span>
 								</div>
-							</label>
-							<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 rounded-b">
+							</div>
+							<div class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 rounded-b">
 								<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700 font-bold'>
 									Umsatz
 								</div>
@@ -415,7 +415,7 @@
 								<div class='flex-shrink-0 font-bold w-32 text-right'>
 									{(selectedPricing - (zoneDeliveryPrice * (1 - deliverySplit)) - ((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.029 + 0.3) - 1).toFixed(2)} <span class='text-sm'>CHF</span>
 								</div>
-							</label>
+							</div>
 						</div>
 					</fieldset>
 
@@ -431,7 +431,7 @@
 
 						<fieldset>
 							<div class='bg-white rounded-md -space-y-px'>
-								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 bg-gray-100 rounded-t text-gray-900">
+								<div class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 bg-gray-100 rounded-t text-gray-900">
 									<div class='flex flex-col flex-grow block text-sm font-medium'>
 
 									</div>
@@ -441,8 +441,8 @@
 									<div class='flex-shrink-0 w-32 text-right text-sm'>
 										Fair Pizza
 									</div>
-								</label>
-								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+								</div>
+								<div class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
 									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
 										Bestellwert
 									</div>
@@ -452,8 +452,8 @@
 									<div class='flex-shrink-0 w-32 text-right'>
 										{selectedPricing.toFixed(2)} <span class='text-sm'>CHF</span>
 									</div>
-								</label>
-								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+								</div>
+								<div class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
 									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
 										Lieferkosten
 									</div>
@@ -463,8 +463,8 @@
 									<div class='flex-shrink-0 w-32 text-right'>
 										{(zoneDeliveryPrice * deliverySplit).toFixed(2)} <span class='text-sm'>CHF</span>
 									</div>
-								</label>
-								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
+								</div>
+								<div class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200">
 									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700'>
 										MWST.
 									</div>
@@ -474,8 +474,8 @@
 									<div class='flex-shrink-0 w-32 text-right'>
 										{((selectedPricing + zoneDeliveryPrice * deliverySplit) * 0.024).toFixed(2)} <span class='text-sm'>CHF</span>
 									</div>
-								</label>
-								<label class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 rounded-b">
+								</div>
+								<div class="relative border px-4 py-2 mt-2 flex items-center cursor-pointer focus:outline-none border-gray-200 rounded-b">
 									<div class='flex flex-col flex-grow block text-sm font-medium text-gray-700 font-bold'>
 										Total
 									</div>
@@ -485,7 +485,7 @@
 									<div class='flex-shrink-0 font-bold w-32 text-right'>
 										{(selectedPricing + selectedPricing * 0.024 + zoneDeliveryPrice * deliverySplit).toFixed(2)} <span class='text-sm'>CHF</span>
 									</div>
-								</label>
+								</div>
 							</div>
 						</fieldset>
 					</div>

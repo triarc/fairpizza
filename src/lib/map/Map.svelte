@@ -1,7 +1,7 @@
 <script>
 	import { select, geoPath, geoMercator } from 'd3';
-	import geojson from '../../../static/zuerich.json'
-	import population from '../../../static/bevoelkerung_proplz.json'
+	import geojson from '../../zuerich.json'
+	import population from '../../bevoelkerung_proplz.json'
 	import { onMount, afterUpdate, createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();

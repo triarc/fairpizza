@@ -1,22 +1,22 @@
-import preprocess from 'svelte-preprocess';
+import sveltePreprocess from 'svelte-preprocess'
 import vercel from '@sveltejs/adapter-vercel'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
-	preprocess: preprocess({
-		defaults: {
-			style: 'postcss',
-		},
-		postcss: true,
-	}),
+	preprocess: [
+		sveltePreprocess({
+			postcss: true,
+		}),
+	],
 
 	kit: {
-		// hydrate the <div id="svelte"> element in src/app.html
+		// By default, `npm run build` will create a standard Node app.
+		// You can create optimized builds for different platforms by
+		// specifying a different adapter
 		adapter: vercel(),
-		target: '#svelte'
-	}
-};
+	},
+}
 
-export default config;
+export default config
